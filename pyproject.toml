@@ -1,0 +1,65 @@
+# referenced from https://github.com/AUTOMATIC1111/stable-diffusion-webui/blob/82a973c04367123ae98bd9abdf80d9eda9b910e2/pyproject.toml
+[tool.ruff]
+exclude = [
+    "Third_Party",
+    "isaac-sim2real/isaacsim_utils/helper.py"
+]
+target-version = "py311"
+
+[tool.ruff.lint]
+
+extend-select = [
+  "B",
+  "C",
+  "I",
+  "W",
+]
+
+ignore = [
+	"E501", # Line too long
+	"E721", # Do not compare types, use `isinstance`
+	"E731", # Do not assign a `lambda` expression, use a `def`
+
+	"I001", # Import block is un-sorted or un-formatted
+	"C901", # Function is too complex
+	"C408", # Rewrite as a literal
+	"W605", # invalid escape sequence, messes with some docstrings
+]
+
+# Not really sure what this is.
+[tool.ruff.lint.flake8-bugbear]
+# Allow default arguments like, e.g., `data: List[str] = fastapi.Query(None)`.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.security.HTTPBasic"]
+
+
+
+[tool.setuptools.packages.find]
+include = ["common_utils"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore:Importing from timm.models.layers is deprecated:FutureWarning",
+    "ignore:zmq.eventloop.ioloop is deprecated in pyzmq 17:Warning:meshcat.servers.zmqserver",
+    "ignore:'locale.getdefaultlocale' is deprecated:Warning:ccimport.buildtools.writer",
+]
+
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "socket-communication"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "lark>=1.3.1",
+    "pytest>=9.0.2",
+    "pyyaml>=6.0.3",
+]
